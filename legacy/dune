@@ -1,0 +1,27 @@
+(library
+  (name camlp_stream_4_14)
+  (public_name camlp-streams.stdlib)
+  (wrapped false)
+  (flags :standard -w -3)
+  (synopsis "[internal]")
+  (enabled_if (and (< %{ocaml_version} 5.0) (>= %{ocaml_version} 4.14))))
+
+(rule
+  (target genlex.mli)
+  (action (with-stdout-to %{target}
+    (echo "include module type of struct include Genlex end"))))
+
+(rule
+  (target genlex.ml)
+  (action (with-stdout-to %{target}
+    (echo "include Genlex"))))
+
+(rule
+  (target stream.mli)
+  (action (with-stdout-to %{target}
+    (echo "include module type of struct include Stream end"))))
+
+(rule
+  (target stream.ml)
+  (action (with-stdout-to %{target}
+    (echo "include Stream"))))
